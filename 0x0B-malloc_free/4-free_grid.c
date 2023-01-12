@@ -4,35 +4,35 @@
 
 /**
 
- * alloc_grid - pointer to a 2D array of ints
+ * free_grid - free the alloc_grid
 
- * @width: rows
+ * @grid: grid we want to free from memory
 
  * @height: columns
 
- * Return: array
-
  */
 
-int **alloc_grid(int width, int height)
+void free_grid(int **grid, int height)
 
 {
 
-	int **arr, i, j;
+	int i;
 
 
 
-	if (width <= 0 || height <= 0)
+	if (height <= 0)
 
-		return (NULL);
+	{
+
+		return;
+
+	}
 
 
 
-	arr = (int **) malloc(sizeof(int *) * height);
+	if (grid == NULL)
 
-	if (arr == NULL)
-
-		return (NULL);
+		return;
 
 
 
@@ -40,42 +40,12 @@ int **alloc_grid(int width, int height)
 
 	{
 
-		arr[i] = (int *) malloc(sizeof(int) * width);
-
-		if (arr[i] == NULL)
-
-		{
-
-			for (j = 0; j < i; j++)
-
-			{
-
-				free(arr[j]);
-
-			}
-
-			free(arr);
-
-		}
+		free(grid[i]);
 
 	}
 
 
 
-	for (i = 0; i < height; i++)
-
-	{
-
-		for (j = 0; j < width; j++)
-
-		{
-
-			arr[i][j] = 0;
-
-		}
-
-	}
-
-	return (arr);
+	free(grid);
 
 }
